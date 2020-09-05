@@ -1,0 +1,23 @@
+{
+  "resources": [
+    {
+      "name": "api_handler_role",
+      "resource_type": "iam_role",
+      "role_arn": "arn:aws:iam::634822774103:role/music-exchange-api-dev-api_handler",
+      "role_name": "music-exchange-api-dev-api_handler"
+    },
+    {
+      "name": "api_handler",
+      "resource_type": "lambda_function",
+      "lambda_arn": "arn:aws:lambda:eu-west-1:634822774103:function:music-exchange-api-dev"
+    },
+    {
+      "name": "rest_api",
+      "resource_type": "rest_api",
+      "rest_api_id": "uod8dqq93a",
+      "rest_api_url": "https://uod8dqq93a.execute-api.eu-west-1.amazonaws.com/api/"
+    }
+  ],
+  "schema_version": "2.0",
+  "backend": "api"
+}
