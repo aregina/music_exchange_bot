@@ -1,6 +1,7 @@
 import json
 import logging
 import os
+import re
 
 import boto3
 import requests
@@ -34,9 +35,9 @@ def convert_link():
     if link:
         if link in ['/help', '/start']:
             response = "Just post Spotify or Yandex Music track link here and I'll convert it respectively"
-        elif 'https://music.yandex.ru' in link:
+        elif re.match('^https://music.yandex.ru/.*', link):
             response = convert_yam_link_to_spotify(link)
-        elif 'https://open.spotify.com' in link:
+        elif re.match('^https://open.spotify.com/.*', link):
             response = convert_spotify_link_to_yam(link)
         else:
             response = "It doesn't look like a link to Spotify or Yandex Music. Try again"
