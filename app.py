@@ -27,6 +27,7 @@ os.environ['SPOTIPY_CLIENT_SECRET'] = music_exchange_bot_secrets['spotify_client
 @app.route('/convert_link', methods=['POST'])
 def convert_link():
     request_body = app.current_request.json_body
+    app.log.info(f"{request_body=}")
     chat_id = request_body['message']['chat']['id']
     link = request_body['message'].get('text')
     app.log.info(f"{chat_id=}, {link=}")
