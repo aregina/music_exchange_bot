@@ -12,6 +12,7 @@ def get_title_from_yam(link):
     link example link = 'https://music.yandex.ru/album/6062534/track/21491669'
                  link = 'https://music.yandex.ru/album/2489597'
                  link = 'https://music.yandex.ru/artist/519183'
+                 link = 'https://music.yandex.ru/users/music.partners/playlists/2084'
 
     :param link:
     :return:
@@ -19,7 +20,6 @@ def get_title_from_yam(link):
     yam_page_html = requests.get(link).text
     yam_page = BeautifulSoup(yam_page_html, 'html.parser')
     track_title = yam_page.find_all('meta', {'property': 'og:title'})[0]['content']
-    #track_title = yam_page.title.string.split('. Слушать онлайн на Яндекс.Музыке')[0]
     return track_title.replace(' — ', ' ')
 
 
@@ -67,6 +67,7 @@ def get_obj_title_from_spotify(link, link_type, sp_client):
     link example link = 'https://open.spotify.com/track/5Ic5QeBGzZO8wXm8JGSG31'
                  link = 'https://open.spotify.com/album/6rLuPANmVobaOWZ6qyLUph'
                  link = 'https://open.spotify.com/artist/7pmh8z3Pzz2u68OmucFSZz'
+                 link = 'https://open.spotify.com/playlist/0buQ9ZgTOwOKBXfxQJe1Vn?si=LlzfaBbVR-i7XW1s5ZX5qw'
     :param link:
     :param sp_client:
     :return:
@@ -92,7 +93,7 @@ def convert_yam_link_to_spotify(link):
     if type_to_search == 'unknown':
         return 'Unsupported link type. I can convert links to tracks, albums and artists only.'
     spotify_track_link = get_spotify_link(title_to_search, sp, type_to_search)
-    response = f"Yandex Music: {link}\nSpotify: {spotify_track_link}"
+    response = f"{title_to_search}\nYandex Music: {link}\nSpotify: {spotify_track_link}"
     return response
 
 
@@ -103,7 +104,7 @@ def convert_spotify_link_to_yam(link):
         return 'Unsupported link type. I can convert links to tracks, albums and artists only.'
     obj_title = get_obj_title_from_spotify(link, type_to_search, sp)
     yam_link = get_yam_track_link(obj_title, type_to_search)
-    response = f"Yandex Music: {yam_link}\nSpotify: {link}"
+    response = f"{obj_title}\nYandex Music: {yam_link}\nSpotify: {link}"
     return response
 
 
